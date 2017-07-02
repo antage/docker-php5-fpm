@@ -1,0 +1,11 @@
+[template]
+src = "www.conf.tmpl"
+dest = "/etc/php5/fpm/pool.d/www.conf"
+mode = "0644"
+
+keys = [
+    "/php/fpm/run/user",
+    "/php/fpm/run/group",
+    "/php/fpm/max/workers",
+    "/php/fpm/max/requests",
+]

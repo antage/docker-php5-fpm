@@ -1,0 +1,10 @@
+[template]
+src = "php.fpm.ini.tmpl"
+dest = "/etc/php5/fpm/php.ini"
+mode = "0644"
+
+keys = [
+    "/php/timezone",
+    "/php/smtp",
+    "/php/mbstring/func/overload"
+]
