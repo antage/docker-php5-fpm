@@ -22,6 +22,7 @@ RUN \
         php5-mcrypt \
         php5-curl \
         php5-memcache \
+        php5-redis \
         php5-xsl \
         php5-xdebug \
         php5-intl \
