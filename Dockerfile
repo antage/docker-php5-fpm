@@ -41,6 +41,8 @@ RUN \
         ghostscript \
         wget \
         pngquant \
+        mplayer \
+        mencoder \
         newrelic-php5 \
         git \
     && apt-get clean \
