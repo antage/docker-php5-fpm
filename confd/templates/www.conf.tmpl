@@ -43,7 +43,7 @@ listen = 9000
 
 ; Set permissions for unix socket, if one is used. In Linux, read/write
 ; permissions must be set in order to allow connections from a web server. Many
-; BSD-derived systems allow connections regardless of permissions. 
+; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0660
 ;listen.owner = www-data
@@ -230,7 +230,7 @@ pm.max_requests = {{getv "/php/fpm/max/requests"}}
 ; Note: The value must start with a leading slash (/). The value can be
 ;       anything, but it may not be a good idea to use the .php extension or it
 ;       may conflict with a real PHP file.
-; Default Value: not set 
+; Default Value: not set
 pm.status_path = /status
 
 ; The ping URI to call the monitoring page of FPM. If this value is not set, no
@@ -293,7 +293,7 @@ access.log = /var/log/php-fpm/access.log
 ;      - ....
 ;  %p: PID of the child that serviced the request
 ;  %P: PID of the parent of the child that serviced the request
-;  %q: the query string 
+;  %q: the query string
 ;  %Q: the '?' character if query string exists
 ;  %r: the request URI (without the query string, see %q and %Q)
 ;  %R: remote IP address
@@ -334,14 +334,18 @@ rlimit_files = 8192
 ; Set max core size rlimit.
 ; Possible Values: 'unlimited' or an integer greater or equal to 0
 ; Default Value: system defined value
+{{if ne (getv "/php/fpm/coredump") ""}}
+rlimit_core = unlimited
+{{else}}
 ;rlimit_core = 0
+{{end}}
 
 ; Chroot to this directory at the start. This value must be defined as an
 ; absolute path. When this value is not set, chroot is not used.
 ; Note: you can prefix with '$prefix' to chroot to the pool prefix or one
 ; of its subdirectories. If the pool prefix is not set, the global prefix
 ; will be used instead.
-; Note: chrooting is a great security feature and should be used whenever 
+; Note: chrooting is a great security feature and should be used whenever
 ;       possible. However, all PHP paths will be relative to the chroot
 ;       (error_log, sessions.save_path, ...).
 ; Default Value: not set
@@ -389,7 +393,7 @@ catch_workers_output = yes
 ; overwrite the values previously defined in the php.ini. The directives are the
 ; same as the PHP SAPI:
 ;   php_value/php_flag             - you can set classic ini defines which can
-;                                    be overwritten from PHP call 'ini_set'. 
+;                                    be overwritten from PHP call 'ini_set'.
 ;   php_admin_value/php_admin_flag - these directives won't be overwritten by
 ;                                     PHP call 'ini_set'
 ; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.
@@ -408,4 +412,3 @@ catch_workers_output = yes
 ;php_flag[display_errors] = off
 php_admin_value[error_log] = /var/log/php-fpm/error.log
 php_admin_flag[log_errors] = on
-

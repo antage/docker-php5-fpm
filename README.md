@@ -27,6 +27,7 @@ Just run `make`.
 * `PHP_FPM_RUN_GROUP` (www-data by default)
 * `PHP_FPM_MAX_WORKERS` (32 by default)
 * `PHP_FPM_MAX_REQUEST` (1024 by default)
+* `PHP_FPM_COREDUMP` (empty by default)
 * `PHP_MODS`
 * `PHP_TIMEZONE` ('UTC' by default)
 * `PHP_SMTP` - MTA SMTP IP-address/hostname
