@@ -15,6 +15,7 @@ RUN \
         curl \
         imagemagick \
         msmtp-mta \
+        build-essential \
         php5-cli \
         php5-fpm \
         php5-mysql \
@@ -22,7 +23,6 @@ RUN \
         php5-mcrypt \
         php5-curl \
         php5-memcache \
-        php5-redis \
         php5-xsl \
         php5-xdebug \
         php5-intl \
@@ -31,14 +31,12 @@ RUN \
         php5-phalcon \
         php5-mongo \
         php5-amqp \
-        php5-redis \
         php5 \
         php5-dev \
         php-pear \
         php5-dbg \
         gdb \
         ffmpeg \
-        imagemagick \
         flvtool2 \
         ghostscript \
         wget \
@@ -47,9 +45,6 @@ RUN \
         mencoder \
         newrelic-php5 \
         git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm /var/log/dpkg.log \
     && curl -#L http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz -o /tmp/ioncube.tar.gz \
     && tar xzf /tmp/ioncube.tar.gz -C /tmp/ \
     && install -m 0644 \
@@ -74,7 +69,14 @@ RUN \
     && chmod +x /usr/local/bin/gosu \
     && curl -o /usr/local/bin/composer https://getcomposer.org/download/1.4.2/composer.phar \
     && chown root:root /usr/local/bin/composer \
-    && chmod 0755 /usr/local/bin/composer
+    && chmod 0755 /usr/local/bin/composer \
+    && /usr/bin/pecl install redis \
+    && echo 'extension=redis.so' > /etc/php5/mods-available/redis.ini \
+    && apt-get --yes purge build-essential \
+    && apt-get --purge --yes autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm /var/log/dpkg.log
 
 RUN \
     rm /etc/php5/cli/conf.d/* \
