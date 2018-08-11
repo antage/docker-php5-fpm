@@ -99,6 +99,7 @@ ENV PHP_MBSTRING_FUNC_OVERLOAD 0
 ENV PHP_NEWRELIC_LICENSE_KEY   ""
 ENV PHP_NEWRELIC_APPNAME       ""
 ENV PHP_NEWRELIC_FRAMEWORK     "no_framework"
+ENV PHP_NEWRELIC_PORT          "/run/newrelic/newrelic.sock"
 
 COPY .gdbinit /root/.gdbinit
 
