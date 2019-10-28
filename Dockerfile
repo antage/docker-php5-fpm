@@ -3,7 +3,6 @@ FROM debian:jessie
 RUN \
     echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/deb-multimedia.list \
     && apt-get -y -q update \
-    && echo "deb https://packagecloud.io/phalcon/stable/debian/ jessie main" > /etc/apt/sources.list.d/phalcon.list \
     && echo "deb http://deb.antage.name jessie main" > /etc/apt/sources.list.d/antage.list \
     && echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list \
     && DEBIAN_FRONTEND=noninteractive apt-get -y -q --no-install-recommends --force-yes install apt-transport-https deb-multimedia-keyring curl ca-certificates \
@@ -28,7 +27,6 @@ RUN \
         php5-intl \
         php5-xmlrpc \
         php5-apcu \
-        php5-phalcon \
         php5-mongo \
         php5-amqp \
         php5 \
