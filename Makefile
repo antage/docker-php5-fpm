@@ -1,4 +1,4 @@
 .PHONY: all
 
 all:
-	docker build -t php5-fpm:latest .
+	docker build --progress=plain -t php5-fpm:latest .

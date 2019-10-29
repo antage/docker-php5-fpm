@@ -3,10 +3,10 @@ FROM debian:jessie
 RUN \
     echo "deb http://www.deb-multimedia.org jessie main non-free" > /etc/apt/sources.list.d/deb-multimedia.list \
     && apt-get -y -q update \
-    && echo "deb http://deb.antage.name jessie main" > /etc/apt/sources.list.d/antage.list \
+    && echo "deb http://deb.manageservers.ru jessie main" > /etc/apt/sources.list.d/manageservers.list \
     && echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list \
     && DEBIAN_FRONTEND=noninteractive apt-get -y -q --no-install-recommends --force-yes install apt-transport-https deb-multimedia-keyring curl ca-certificates \
-    && curl -s http://deb.antage.name/apt.key | apt-key add - \
+    && curl -s http://deb.manageservers.ru/apt.key | apt-key add - \
     && curl -s https://download.newrelic.com/548C16BF.gpg | apt-key add - \
     && curl -s https://packagecloud.io/gpg.key | apt-key add - \
     && apt-get -y -q update \
@@ -28,7 +28,6 @@ RUN \
         php5-xmlrpc \
         php5-apcu \
         php5-mongo \
-        php5-amqp \
         php5 \
         php5-dev \
         php-pear \
@@ -51,24 +50,17 @@ RUN \
     && rm -rf /tmp/ioncube \
     && rm /tmp/ioncube.tar.gz \
     && echo "; configuration for php ionCube loader module\n; priority=00\nzend_extension=ioncube_loader.so" > /etc/php5/mods-available/ioncube_loader.ini \
-    && /usr/bin/pear channel-discover pear.geometria-lab.net \
-    && /usr/bin/pear install geometria-lab/Rediska-beta \
-    && curl -#L https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 -o /usr/local/bin/confd \
+    && curl -#L https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 -o /usr/local/bin/confd \
     && chmod 755 /usr/local/bin/confd \
     && mkdir -p /etc/confd/conf.d \
     && mkdir -p /etc/confd/templates \
     && touch /etc/confd/confd.toml \
-    && gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64" \
-    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64.asc" \
-    && gpg --verify /usr/local/bin/gosu.asc \
-    && rm /usr/local/bin/gosu.asc \
-    && rm -r /root/.gnupg/ \
+    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64" \
     && chmod +x /usr/local/bin/gosu \
-    && curl -o /usr/local/bin/composer https://getcomposer.org/download/1.4.2/composer.phar \
+    && curl -o /usr/local/bin/composer https://getcomposer.org/download/1.9.0/composer.phar \
     && chown root:root /usr/local/bin/composer \
     && chmod 0755 /usr/local/bin/composer \
-    && /usr/bin/pecl install redis \
+    && /usr/bin/pecl install redis-4.3.0 \
     && echo 'extension=redis.so' > /etc/php5/mods-available/redis.ini \
     && apt-get --yes purge build-essential \
     && apt-get --purge --yes autoremove \
@@ -83,6 +75,10 @@ RUN \
     && rm /var/run/newrelic-daemon.pid \
     && mkdir /var/www \
     && mkdir /var/log/php5-fpm
+
+COPY Rediska-0.5.10.tgz /tmp/Rediska-0.5.10.tar.gz
+RUN pear install /tmp/Rediska-0.5.10.tar.gz \
+    && rm /tmp/Rediska-0.5.10.tar.gz
 
 EXPOSE 9000
 
