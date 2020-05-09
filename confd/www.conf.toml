@@ -8,5 +8,6 @@ keys = [
     "/php/fpm/run/group",
     "/php/fpm/max/workers",
     "/php/fpm/max/requests",
-    "/php/fpm/coredump"
+    "/php/fpm/coredump",
+    "/php/fpm/env/whitelist",
 ]

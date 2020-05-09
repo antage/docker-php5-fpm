@@ -388,6 +388,11 @@ catch_workers_output = yes
 ;env[TMP] = /tmp
 ;env[TMPDIR] = /tmp
 ;env[TEMP] = /tmp
+{{ if exists "/php/fpm/env/whitelist" }}
+{{- range (split (getv "/php/fpm/env/whitelist") ":") }}
+env[{{.}}] = ${{.}}
+{{- end }}
+{{- end }}
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
 ; overwrite the values previously defined in the php.ini. The directives are the
